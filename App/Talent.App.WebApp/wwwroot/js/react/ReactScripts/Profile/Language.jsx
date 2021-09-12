@@ -75,7 +75,7 @@ export default class Language extends React.Component {
   saveLanguage() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/AddLanguage",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/AddLanguage",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -86,6 +86,7 @@ export default class Language extends React.Component {
         console.log(res);
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.closeAdd();
         } else {
           TalentUtil.notification.show(
@@ -108,7 +109,7 @@ export default class Language extends React.Component {
     language = this.state.newlanguage;
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/UpdateLanguage",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/UpdateLanguage",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -118,6 +119,7 @@ export default class Language extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.onCloseEdit();
         } else {
           TalentUtil.notification.show(
@@ -139,7 +141,7 @@ export default class Language extends React.Component {
   deleteLanguage(language) {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/DeleteLanguage",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/DeleteLanguage",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -149,6 +151,7 @@ export default class Language extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
         } else {
           TalentUtil.notification.show(
             "Language did not deleted successfully",

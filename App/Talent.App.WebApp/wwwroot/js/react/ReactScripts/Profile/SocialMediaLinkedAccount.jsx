@@ -43,13 +43,14 @@ export default class SocialMediaLinkedAccount extends React.Component {
 
   saveLinkedAccounts() {
     const data = Object.assign({}, this.state.newlinkedAccounts);
-    console.log("Linked Account", data);
+
     this.props.saveProfileData({
       linkedAccounts: {
         linkedIn: data.linkedIn,
         github: data.github,
       },
     });
+    //this.props.updateProfileData();
     this.closeEdit();
   }
 

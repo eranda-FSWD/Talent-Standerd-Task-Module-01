@@ -74,13 +74,20 @@ export default class AccountProfile extends React.Component {
   loadData() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/getTalentProfile",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/getTalentProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
       },
       type: "GET",
       success: function (res) {
+        let userData = null;
+        if (res.talent) {
+          userData = res.talent;
+        }
+        this.setState({
+          profileData: res.data,
+        });
         this.updateWithoutSave(res.data);
         console.log(res);
       }.bind(this),
@@ -111,13 +118,13 @@ export default class AccountProfile extends React.Component {
       },
       this.saveProfile
     );
-    this.loadData();
+    //this.loadData();
   }
 
   saveProfile() {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/updateTalentProfile",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/updateTalentProfile",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -172,7 +179,7 @@ export default class AccountProfile extends React.Component {
                     >
                       <SocialMediaLinkedAccount
                         linkedAccounts={this.state.profileData.linkedAccounts}
-                        // updateProfileData={this.updateWithoutSave}
+                        updateProfileData={this.updateWithoutSave}
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
@@ -193,6 +200,7 @@ export default class AccountProfile extends React.Component {
                       <SelfIntroduction
                         summary={this.state.profileData.summary}
                         description={this.state.profileData.description}
+                        loadData={this.loadData}
                         saveProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
@@ -222,12 +230,14 @@ export default class AccountProfile extends React.Component {
                     >
                       <Language
                         languageData={this.state.profileData.languages}
+                        update={this.loadData}
                         updateProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
                     <FormItemWrapper title="Skills" tooltip="List your skills">
                       <Skill
                         skillData={this.state.profileData.skills}
+                        update={this.loadData}
                         updateProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
@@ -237,6 +247,7 @@ export default class AccountProfile extends React.Component {
                     >
                       <Experience
                         experienceData={this.state.profileData.experience}
+                        update={this.loadData}
                         updateProfileData={this.updateAndSaveData}
                       />
                     </FormItemWrapper>
@@ -286,8 +297,9 @@ export default class AccountProfile extends React.Component {
                     >
                       <PhotoUpload
                         imageId={this.state.profileData.profilePhotoUrl}
+                        update={this.loadData}
                         updateProfileData={this.updateWithoutSave}
-                        savePhotoUrl="http://localhost:60290/profile/profile/updateProfilePhoto"
+                        savePhotoUrl="http://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/updateProfilePhoto"
                       />
                     </FormItemWrapper>
                     {/* <FormItemWrapper
@@ -299,7 +311,7 @@ export default class AccountProfile extends React.Component {
                         videoName={this.state.profileData.videoName}
                         updateProfileData={this.updateWithoutSave}
                         saveVideoUrl={
-                          "http://localhost:60290/profile/profile/updateTalentVideo"
+                          "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/updateTalentVideo"
                         }
                       />
                     </FormItemWrapper> 
@@ -313,7 +325,7 @@ export default class AccountProfile extends React.Component {
                         cvUrl={this.state.profileData.cvUrl}
                         updateProfileData={this.updateWithoutSave}
                         saveCVUrl={
-                          "http://localhost:60290/profile/profile/updateTalentCV"
+                          "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/updateTalentCV"
                         }
                       />
                     </FormItemWrapper>*/}

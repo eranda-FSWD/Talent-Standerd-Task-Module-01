@@ -22,6 +22,7 @@ export default class TalentStatus extends React.Component {
         AvailableDate: null,
       },
     });
+    // this.props.updateProfileData();
   }
 
   render() {

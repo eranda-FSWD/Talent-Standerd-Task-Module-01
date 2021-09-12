@@ -61,6 +61,7 @@ export class Address extends React.Component {
         suburb: data.suburb,
       },
     });
+    // this.props.updateProfileData();
     this.closeEdit();
   }
 
@@ -92,8 +93,6 @@ export class Address extends React.Component {
       cityOptionsList = (
         <select
           className="ui dropdown"
-          placeholder="City"
-          label="Select City"
           value={selectedCity}
           onChange={this.handleChange}
           name="city"

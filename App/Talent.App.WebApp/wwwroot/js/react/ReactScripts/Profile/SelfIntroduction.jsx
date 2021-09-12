@@ -15,9 +15,12 @@ export default class SelfIntroduction extends React.Component {
     this.openEdit = this.openEdit.bind(this);
     this.closeEdit = this.closeEdit.bind(this);
     this.saveSelfIntroData = this.saveSelfIntroData.bind(this);
+    this.renderEdit = this.renderEdit.bind(this);
+    this.renderDisplay = this.renderDisplay.bind(this);
   }
 
   handleChange(event) {
+    console.log("Discription Data: ", event.target.value);
     if (event.target.name == "summary") {
       this.setState({
         tempSummary: event.target.value,
@@ -32,6 +35,8 @@ export default class SelfIntroduction extends React.Component {
   openEdit() {
     this.setState({
       showEditSection: true,
+      tempSummary: this.props.summary,
+      tempDescription: this.props.description,
     });
   }
 
@@ -43,10 +48,9 @@ export default class SelfIntroduction extends React.Component {
 
   saveSelfIntroData() {
     let data = {};
-    data["summary"] = this.state.tempSummary ? "" : this.props.summary;
-    data["description"] = this.state.tempDescription
-      ? ""
-      : this.props.description;
+    data["summary"] = this.state.tempSummary;
+    data["description"] = this.state.tempDescription;
+    console.log("Discriptin Data: ", data);
     this.props.saveProfileData(data);
     this.closeEdit();
   }
@@ -67,17 +71,18 @@ export default class SelfIntroduction extends React.Component {
               maxLength={150}
               name="summary"
               placeholder="Please provide a short summary about yourself"
-              defaultValue={this.props.summary}
+              value={this.state.tempSummary}
               onChange={this.handleChange}
             ></input>
             <p>Summary must be no more than 150 characters.</p>
             <textarea
-              rows={10}
+              type="textarea"
+              //rows={10}
               minLength={150}
               maxLength={600}
               name="description"
               placeholder="Please tell us about any hobbies, additional experties, or anythinh else you'd like to add"
-              defaultValue={this.props.description}
+              value={this.state.tempDescription}
               onChange={this.handleChange}
             ></textarea>
             <p>Description must be between 150-600 characters.</p>

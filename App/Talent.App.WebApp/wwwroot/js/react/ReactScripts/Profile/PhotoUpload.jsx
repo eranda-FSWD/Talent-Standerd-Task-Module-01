@@ -80,6 +80,7 @@ export default class PhotoUpload extends Component {
       url: this.props.savePhotoUrl,
       headers: {
         Authorization: "Bearer " + cookies,
+        // "Content-type": "multipart/form-data",
       },
       type: "POST",
       data: data,
@@ -102,7 +103,8 @@ export default class PhotoUpload extends Component {
             {
               showUpload: false,
             },
-            this.props.updateProfileData(data)
+            this.props.updateProfileData(data),
+            this.props.update()
           );
         } else {
           TalentUtil.notification.show(res.message, "error", null, null);

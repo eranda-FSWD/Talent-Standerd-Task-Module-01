@@ -85,7 +85,7 @@ export default class Experience extends React.Component {
     console.log("Saving :", this.state.newExperiences);
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/AddExperience",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/AddExperience",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -96,6 +96,7 @@ export default class Experience extends React.Component {
         console.log(res);
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.closeAdd();
         } else {
           TalentUtil.notification.show(
@@ -119,7 +120,7 @@ export default class Experience extends React.Component {
     console.log("Update :", experience);
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/UpdateExperience",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/UpdateExperience",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -129,6 +130,7 @@ export default class Experience extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.onCloseEdit();
         } else {
           TalentUtil.notification.show(
@@ -150,7 +152,7 @@ export default class Experience extends React.Component {
   deleteExperience(experience) {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/DeleteExperience",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/DeleteExperience",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -160,6 +162,7 @@ export default class Experience extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
         } else {
           TalentUtil.notification.show(
             "Experience did not deleted successfully",

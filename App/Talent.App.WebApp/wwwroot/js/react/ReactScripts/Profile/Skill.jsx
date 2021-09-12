@@ -77,7 +77,7 @@ export default class Skill extends React.Component {
     console.log("Saving :", this.state.newSkills);
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/AddSkill",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/AddSkill",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -88,6 +88,7 @@ export default class Skill extends React.Component {
         console.log(res);
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.closeAdd();
         } else {
           TalentUtil.notification.show(
@@ -111,7 +112,7 @@ export default class Skill extends React.Component {
     console.log("Update :", skill);
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/UpdateSkill",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/UpdateSkill",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -121,6 +122,7 @@ export default class Skill extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
           this.onCloseEdit();
         } else {
           TalentUtil.notification.show(
@@ -142,7 +144,7 @@ export default class Skill extends React.Component {
   deleteSkill(skill) {
     var cookies = Cookies.get("talentAuthToken");
     $.ajax({
-      url: "http://localhost:60290/profile/profile/DeleteSkill",
+      url: "https://talent-standerd-module-01-pro.azurewebsites.net/profile/profile/DeleteSkill",
       headers: {
         Authorization: "Bearer " + cookies,
         "Content-Type": "application/json",
@@ -152,6 +154,7 @@ export default class Skill extends React.Component {
       success: function (res) {
         if (res.success == true) {
           this.props.updateProfileData();
+          this.props.update();
         } else {
           TalentUtil.notification.show(
             "Skill did not deleted successfully",
